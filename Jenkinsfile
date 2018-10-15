@@ -6,7 +6,7 @@ pipeline {
     }
 
     stages {
-        stage('build') {
+        stage('Build') {
             environment {
                 STAGE_ENV_VAR = 'this is a stage environment variable'
             }
@@ -22,6 +22,7 @@ pipeline {
         }
         stage('Test') {
             steps {
+                input "Asking for input"
                 echo 'test complete'
             }
         }
