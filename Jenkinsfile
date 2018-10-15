@@ -1,7 +1,15 @@
 pipeline {
     agent any
+
+    environment {
+        GLOBAL_ENV_VAR = 'this is a global environment variable'
+    }
+
     stages {
         stage('build') {
+            environment {
+                STAGE_ENV_VAR = 'this is a stage environment variable'
+            }
             steps {
                 retry(3) {
                     echo 'retry up to 3 times'
@@ -17,12 +25,14 @@ pipeline {
     post {
         always {
             echo 'This will always run'
+            mail to: 'aohan.dang@intersystems.com', subject: "Ran Pipeline: ${currentBuild.fullDisplayName}", body: "Build was run."
         }
         success {
             echo 'This will run only if successful'
         }
         failure {
             echo 'This will run only if failed'
+
         }
         unstable {
             echo 'This will run only if the run is marked as unstable'
