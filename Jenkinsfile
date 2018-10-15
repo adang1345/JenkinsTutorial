@@ -20,12 +20,21 @@ pipeline {
                 bat 'python --version'
             }
         }
+        stage('Test') {
+            steps {
+                echo 'test complete'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                echo 'deploy complete'
+            }
+        }
     }
 
     post {
         always {
             echo 'This will always run'
-            mail to: 'aohan.dang@intersystems.com', subject: "Ran Pipeline: ${currentBuild.fullDisplayName}", body: "Build was run."
         }
         success {
             echo 'This will run only if successful'
